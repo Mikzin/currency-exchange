@@ -71,7 +71,13 @@ header ul {
   align-items: center;
 }
 
-li {
-  margin: 0 0.5rem;
+@media screen and (max-width: 500px) {
+  header {
+    height: 10rem;
+  }
+
+  nav {
+    flex-direction: column;
+  }
 }
 </style>
