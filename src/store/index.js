@@ -31,7 +31,6 @@ const store = createStore({
         'INR',
         'ISK',
         'JPY',
-        'KRN',
         'KZT',
         'MXN',
         'MYR',
@@ -58,6 +57,7 @@ const store = createStore({
         'ZAR',
       ],
       data: [],
+      dataRate: {},
       currencyOne: 'RUB',
       currencyTwo: 'USD',
       rate: 0,
@@ -67,7 +67,7 @@ const store = createStore({
   },
   actions: {
     async fetchRate(context) {
-      const api = 'e46f83a4158bf1a6da0b0dbe';
+      const api = 'fa449cedb67a3c6aa44339f9';
       const response = await fetch(
         `https://v6.exchangerate-api.com/v6/${api}/latest/${context.state.currencyOne}`
       );
@@ -81,9 +81,27 @@ const store = createStore({
         throw error;
       }
 
-      console.log(responseData);
-
       context.commit('countValue', responseData);
+    },
+
+    async fetchRateToBase(context) {
+      const api = 'fa449cedb67a3c6aa44339f9';
+
+      for (const code of context.state.codes) {
+        const response = await fetch(
+          `https://v6.exchangerate-api.com/v6/${api}/pair/${code}/${context.state.currencyOne}`
+        );
+        const responseData = await response.json();
+
+        if (!response.ok) {
+          const error = new Error(
+            responseData.message || 'Failed to fetch data!'
+          );
+          throw error;
+        }
+
+        context.state.dataRate[code] = responseData.conversion_rate;
+      }
     },
   },
   mutations: {

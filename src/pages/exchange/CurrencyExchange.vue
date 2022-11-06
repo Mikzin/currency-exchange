@@ -55,7 +55,8 @@
           />
         </div>
         <h4 class="currency__update">
-          Обновление курса: {{ $store.state.data.time_last_update_utc }}
+          Обновление курса:
+          {{ $store.state.data.time_last_update_utc }}
         </h4>
       </div>
     </base-card>
@@ -75,6 +76,9 @@ export default {
     switchValues() {
       this.$store.commit('switchValues');
       this.fetchRate();
+    },
+    fetchRateToBase() {
+      this.$store.dispatch('fetchRateToBase');
     },
   },
 

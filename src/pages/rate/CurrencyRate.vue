@@ -1,12 +1,9 @@
 <template>
   <base-card>
     <ul>
-      <li
-        v-for="(value, name) in $store.state.data.conversion_rates"
-        :key="value"
-      >
-        1 {{ $store.state.currencyOne }}={{ value }}
-        {{ name }}
+      <li v-for="(value, name) in $store.state.dataRate" :key="value">
+        1 {{ name }}={{ value }}
+        {{ $store.state.currencyOne }}
       </li>
     </ul>
   </base-card>
@@ -15,12 +12,12 @@
 <script>
 export default {
   methods: {
-    fetchRate() {
-      this.$store.dispatch('fetchRate');
+    fetchRateToBase() {
+      this.$store.dispatch('fetchRateToBase');
     },
   },
-  mounted() {
-    this.fetchRate();
+  created() {
+    this.fetchRateToBase();
   },
 };
 </script>
