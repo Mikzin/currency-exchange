@@ -8,11 +8,6 @@ import TheHeader from './components/layout/TheHeader.vue';
 
 export default {
   components: { TheHeader },
-  methods: {
-    setActivePage(page) {
-      this.activePage = page;
-    },
-  },
 };
 </script>
 

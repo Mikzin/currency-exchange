@@ -77,9 +77,6 @@ export default {
       this.$store.commit('switchValues');
       this.fetchRate();
     },
-    fetchRateToBase() {
-      this.$store.dispatch('fetchRateToBase');
-    },
   },
 
   mounted() {
